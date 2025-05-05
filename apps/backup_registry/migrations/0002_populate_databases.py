@@ -2,6 +2,33 @@
 
 from django.db import migrations
 
+DATABASE_NAMES = [
+    "AB_CADASTROPOSITIVO", "AB_CENTRAL_TERC", "AB_CEP", "AB_CLE",
+    "AB_CONTABIL_COSIF10", "AB_CONTABIL_COSIF10_BC4966", "AB_CONTACORRENTE",
+    "AB_CONTROLE", "AB_CPAGAR", "AB_DADOSABERTOS", "AB_DIMP", "AB_EFINANCEIRA",
+    "AB_GARANTIAS", "AB_GED", "AB_GESTAORC", "AB_GPRE", "AB_INFO_BC",
+    "AB_INFOBANC", "AB_INFOCHEQUE", "AB_INFORME_WEB", "AB_INTEGRA_JD",
+    "AB_INTEGRA_TERC", "AB_NCR_RISCO", "AB_NEGOCIOS_PORTAL", "AB_OPERACAO",
+    "AB_OPERACOES_IFRS9", "AB_PORTABILIDADE", "AB_REINF", "AB_RENFIX",
+    "AB_RENFIX_HIST", "AB_RENFIX_TERC", "AB_RM_WEB", "AB_ROPERACIONAL",
+    "AB_RSAC", "AB_SPED_COSIF10", "AB_TAXAMEDIA", "AB_TESOURARIA",
+    "AB_TESOURARIA_HIST", "AB_TRILHA", "AB_VALORES", "ADV_CORP",
+    "ADV_EGUARDIAN", "ADV_LISTAS", "ADV_METIS", "AGENCIAW", "JDBCC",
+    "JDCCS", "JDJUD"
+]
+
+def populate_db_names(apps, schema_editor):
+    RegisteredDatabase = apps.get_model('backup_registry', 'RegisteredDatabase')
+    db_alias = schema_editor.connection.alias
+    databases_to_create = []
+    for name in DATABASE_NAMES:
+        databases_to_create.append(RegisteredDatabase(name=name))
+    RegisteredDatabase.objects.using(db_alias).bulk_create(databases_to_create, ignore_conflicts=True)
+
+def remove_db_names(apps, schema_editor):
+    RegisteredDatabase = apps.get_model('backup_registry', 'RegisteredDatabase')
+    db_alias = schema_editor.connection.alias
+    RegisteredDatabase.objects.using(db_alias).filter(name__in=DATABASE_NAMES).delete()
 
 class Migration(migrations.Migration):
 
@@ -10,4 +37,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(populate_db_names, reverse_code=remove_db_names),
     ]
