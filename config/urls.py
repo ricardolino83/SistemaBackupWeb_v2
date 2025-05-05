@@ -30,5 +30,5 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
 
     # (Opcional) Se você tiver URLs específicas na sua app 'authentication'
-    # path('auth/', include('apps.authentication.urls')),
+    path('auth/', include('apps.authentication.urls', namespace='authentication')),
 ]

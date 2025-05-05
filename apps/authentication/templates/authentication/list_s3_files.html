@@ -1,0 +1,28 @@
+{% extends "base.html" %} {# Herda do seu template base #}
+
+{% block title %}Arquivos de Backup Diário - {{ block.super }}{% endblock %}
+
+{% block content %}
+<h2>Arquivos de Backup Diário</h2>
+<p>Listando arquivos de: <code>s3://{{ bucket_name }}/{{ prefix }}</code></p>
+
+{% if error_message %}
+    {# Exibe mensagem de erro se ocorrer algum problema ao acessar o S3 #}
+    <p style="color: red;"><strong>Erro:</strong> {{ error_message }}</p>
+{% elif s3_files %}
+    {# Se não houver erro e a lista s3_files não estiver vazia #}
+    <p>Arquivos encontrados:</p>
+    <ul>
+        {% for file_key in s3_files %}
+            {# Itera sobre a lista de arquivos passada pela view #}
+            <li>{{ file_key }}</li> {# Exibe o nome/caminho completo do arquivo #}
+        {% endfor %}
+    </ul>
+{% else %}
+    {# Se não houver erro mas nenhum arquivo for encontrado #}
+    <p>Nenhum arquivo encontrado neste local.</p>
+{% endif %}
+
+<p><a href="{% url 'home' %}">Voltar para a página inicial</a></p> {# Link para voltar #}
+
+{% endblock %}
