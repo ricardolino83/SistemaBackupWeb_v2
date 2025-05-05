@@ -1,119 +1,24 @@
-# Byte-compiled / optimized / DLL files
+# Arquivos Python
+*.pyc
 __pycache__/
-*.py[cod]
-*$py.class
 
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# PyInstaller
-# Usually these files are written by a python script from a template
-# before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-.pytest_cache/
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-media/ # Diretório de uploads de usuário (geralmente não versionado)
-staticfiles/ # Diretório onde collectstatic agrupa os arquivos (geralmente não versionado)
-
-# Flask stuff
-instance/
-.webassets-cache
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# Scrapy stuff
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-
-# Virtual Environments
+# Ambiente Virtual
 venv/
-env/
-ENV/
-virtualenv/
-.venv/
-.env/ # Também usado para variáveis de ambiente
+*/venv/
 
-# Environment variables file
-.env # Arquivo comum para variáveis de ambiente (pode conter segredos)
-.env.* # Arquivos .env específicos de ambiente (ex: .env.local)
-!/.env.example # Opcional: versionar um arquivo de exemplo
+# Arquivos de ambiente
+.env*
+!.env.example
 
-# Sass / SCSS
-.sass-cache/
-.node-sass-cache/
-
-# Node.js dependencies (se usar para front-end)
-node_modules/
-npm-debug.log
-yarn-error.log
-
-# Editor directories and files
-.vscode/
+# Arquivos de IDE
 .idea/
-*.sublime-project
-*.sublime-workspace
-*.komodoproject
+.vscode/
 
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+# Arquivos Estáticos coletados (se usar 'staticfiles')
+staticfiles/
 
-# Outros
-*.swp
-*~
-comandos.txt
+# Arquivos de Banco de Dados (se usar sqlite)
+*.sqlite3
+
+# Outros arquivos
+pessoal.txt

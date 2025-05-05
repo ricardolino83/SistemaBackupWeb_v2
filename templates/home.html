@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Página Inicial - {{ block.super }}{% endblock %}
+
+{% block content %}
+<h2>Bem-vindo!</h2>
+
+{% if user.is_authenticated %}
+    <p>Você está logado como {{ user.username }}.</p>
+    <p>Aqui você poderá ver as funcionalidades do Sistema Backup Web.</p>
+    {# Adicione o conteúdo real da sua página inicial aqui #}
+{% else %}
+    <p>Por favor, <a href="{% url 'login' %}">faça o login</a> para acessar o sistema.</p>
+{% endif %}
+{% endblock %}

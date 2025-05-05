@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Login - {{ block.super }}{% endblock %}
+
+{% block content %}
+<h2>Entrar</h2>
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <p style="color: red;">Usuário ou senha inválidos. Tente novamente.</p>
+    {% endif %}
+
+    {{ form.as_p }}
+    {# 'form.as_p' renderiza cada campo do formulário em um parágrafo <p> #}
+    {# Você pode customizar a renderização campo a campo se preferir #}
+    {# Ex: #}
+    {# <p> #}
+    {#   <label for="{{ form.username.id_for_label }}">Usuário:</label> #}
+    {#   {{ form.username }} #}
+    {# </p> #}
+    {# <p> #}
+    {#   <label for="{{ form.password.id_for_label }}">Senha:</label> #}
+    {#   {{ form.password }} #}
+    {# </p> #}
+
+    <button type="submit">Entrar</button>
+</form>
+{# Adicione link para recuperação de senha se desejar usar essa funcionalidade #}
+{# <p><a href="{% url 'password_reset' %}">Esqueceu a senha?</a></p> #}
+{% endblock %}
