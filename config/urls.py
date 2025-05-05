@@ -20,15 +20,8 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    # Inclui as URLs padrão de autenticação do Django (login, logout, etc.)
-    # Elas procurarão por templates na pasta 'registration/'
     path('accounts/', include('django.contrib.auth.urls')),
-
-    # URL da página inicial (exemplo, após login)
-    # Usando TemplateView para exibir um template estático simples diretamente
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
-
-    # (Opcional) Se você tiver URLs específicas na sua app 'authentication'
     path('auth/', include('apps.authentication.urls', namespace='authentication')),
+    path('registry/', include('apps.backup_registry.urls', namespace='backup_registry')),
 ]

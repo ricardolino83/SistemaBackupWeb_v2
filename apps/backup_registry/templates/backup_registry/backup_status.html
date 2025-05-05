@@ -1,0 +1,81 @@
+{% extends "base.html" %} {# Ou o template base que você usa #}
+{% load static %} {# Carrega a tag static se precisar de CSS/JS #}
+
+{% block title %}Status dos Backups - {{ block.super }}{% endblock %}
+
+{% block content %}
+<h2>Status dos Backups Diários (Últimos 15 Dias)</h2>
+
+{% if error_message %}
+    <p style="color: red;"><strong>Erro:</strong> {{ error_message }}</p>
+{% else %}
+    <style>
+        /* Estilos básicos para a tabela */
+        .backup-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 1em;
+            font-size: 0.9em;
+        }
+        .backup-table th, .backup-table td {
+            border: 1px solid #ddd;
+            padding: 6px;
+            text-align: center;
+        }
+        .backup-table th {
+            background-color: #f2f2f2;
+            white-space: nowrap; /* Evita quebra de linha nas datas */
+        }
+        .backup-table td.no-backup {
+            background-color: #ffdddd; /* Fundo vermelho claro */
+            color: #a00; /* Texto vermelho escuro */
+            font-weight: bold;
+        }
+         .backup-table td.has-backup {
+            background-color: #ddffdd; /* Fundo verde claro */
+             color: #070; /* Texto verde escuro */
+        }
+        .db-name-col {
+             text-align: left;
+             font-weight: bold;
+        }
+    </style>
+
+    <div style="overflow-x:auto;"> {# Para permitir rolagem horizontal em telas pequenas #}
+        <table class="backup-table">
+            <thead>
+                <tr>
+                    <th>Base de Dados</th>
+                    {% for date_str in header_dates %}
+                        {# Cabeçalho com as datas formatadas #}
+                        <th>{{ date_str }}<br>(D{{ forloop.counter0|add:"-14"|add:forloop.counter0|add:forloop.counter0 }})</th> {# Exibe D, D-1, D-2... #}
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row_data in table_data %}
+                    <tr>
+                        <td class="db-name-col">{{ row_data.db_name }}</td> {# Nome do Banco #}
+                        {% for status in row_data.backup_status %}
+                            {# Verifica o status e aplica classe CSS #}
+                            {% if status == "SEM BACKUP" %}
+                                <td class="no-backup">{{ status }}</td>
+                            {% else %}
+                                <td class="has-backup">{{ status }}</td> {# Exibe a data do backup #}
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% empty %}
+                    <tr>
+                        {# Mensagem se não houver bancos registrados #}
+                        <td colspan="{{ header_dates|length|add:1 }}">Nenhum banco de dados registrado encontrado.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+
+<p style="margin-top: 20px;"><a href="{% url 'home' %}">Voltar para a página inicial</a></p>
+
+{% endblock %}

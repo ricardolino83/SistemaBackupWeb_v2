@@ -9,7 +9,8 @@
     <p>Você está logado como {{ user.username }}.</p>
     <p>Aqui você poderá ver as funcionalidades do Sistema Backup Web.</p>
     {# Adicione o conteúdo real da sua página inicial aqui #}
-    <p><a href="{% url 'authentication:list_backup_files' %}">Ver Backups Diários</a></p
+    <p><a href="{% url 'authentication:list_backup_files' %}">Ver Backups Diários</a></p>
+    <p><a href="{% url 'backup_registry:backup_status' %}">Ver Status dos Backups</a></p>
 {% else %}
     <p>Por favor, <a href="{% url 'login' %}">faça o login</a> para acessar o sistema.</p>
 {% endif %}
